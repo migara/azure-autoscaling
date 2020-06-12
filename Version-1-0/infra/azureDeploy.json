@@ -23,7 +23,7 @@
         },
         "repoURL": {
             "type": "string",
-            "defaultValue": "https://github.com/PaloAltoNetworks/azure-autoscaling.git",
+            "defaultValue": "https://github.com/migara/azure-autoscaling.git",
             "metadata": {
                 "description": "The URL for the GitHub repository that hosts the Azure Function bits."
             }
@@ -43,14 +43,14 @@
         }
     },
     "variables": {
-        "location" : "[resourceGroup().location]",
+        "location": "[resourceGroup().location]",
         "functionAppName": "[parameters('panoramaPluginMessageHandlerName')]",
         "namingInfix": "[substring(uniqueString(resourceGroup().id), 0, 5)]",
         "hostingPlanName": "[concat(parameters('panoramaPluginMessageHandlerName'), '-plan')]",
         "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'functions')]",
         "RootManageSharedAccessKey_name": "RootManageSharedAccessKey",
         "serviceBusApiVersion": "2014-09-01",
-        "baseUrl" : "https://raw.githubusercontent.com/PaloAltoNetworks/azure-autoscaling/master/Version-1-0/infra",
+        "baseUrl": "https://raw.githubusercontent.com/PaloAltoNetworks/azure-autoscaling/master/Version-1-0/infra",
         "serviceBusUrl": "[concat(variables('baseUrl'), '/deployServiceBus.json')]",
         "functionHostingPlan": "Basic",
         "appInsightsInstancename": "[concat(parameters('panoramaPluginMessageHandlerName'), '-appinsights-', variables('namingInfix'))]",
@@ -61,7 +61,7 @@
             "name": "SetupServiceBusNamespace",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2018-09-01",
-            "properties": { 
+            "properties": {
                 "mode": "Incremental",
                 "templateLink": {
                     "uri": "[variables('serviceBusUrl')]",

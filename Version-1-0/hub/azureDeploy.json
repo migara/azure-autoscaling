@@ -2,11 +2,11 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "infraRgName": {
+        "infraServiceBusRgName": {
             "type": "string",
-            "defaultValue": "me-existing-vnet",
+            "defaultValue": "me-infra-rg",
             "metadata": {
-                "description": "Resource Group name of the Service Bus infrastructure"
+                "description": "Resource Group name of the Virtual Network of the VM-Series Hub firewall."
             }
         },
         "virtualNetworkRgName": {
@@ -236,6 +236,9 @@
                 "parameters": {
                     "appInsightsName": {
                         "value": "[variables('appInsightsName')]"
+                    },
+                    "location": {
+                        "value": "[variables('location')]"
                     }
                 }
             }
@@ -243,14 +246,14 @@
         {
             "name": "PublishCustomMetrics",
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2015-01-01",
+            "apiVersion": "2016-06-01",
             "dependsOn": [
                 "Microsoft.Resources/deployments/SetupAppInsights"
             ],
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(parameters('panoramaPluginMessageHandlerUrl'), '&op=PublishCustomMetrics', '&ik=', reference('SetupAppInsights').outputs.instrumentationKey.value, '&subsId=', subscription().subscriptionId, '&rg=', variables('rgname'))]",
+                    "uri": "[concat(parameters('panoramaPluginMessageHandlerUrl'), '&op=PublishCustomMetrics', '&ik=', reference('SetupAppInsights').outputs.instrumentationKey.value, '&subsId=', subscription().subscriptionId, '&rg=', parameters('infraServiceBusRgName'))]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {}

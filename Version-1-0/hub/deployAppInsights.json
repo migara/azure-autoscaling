@@ -5,6 +5,9 @@
         "appInsightsName": {
             "type": "string",
             "defaultValue": "appInsights"
+        },
+        "location": {
+            "type": "string"
         }
     },
     "variables": {
@@ -16,7 +19,7 @@
             "type": "Microsoft.Insights/components",
             "kind": "web",
             "apiVersion": "[variables('appInsightsApiVersion')]",
-            "location": "eastus",
+            "location": "[parameters('location')]",
             "tags": {
                 "PanoramaManaged": "Yes"
             },
