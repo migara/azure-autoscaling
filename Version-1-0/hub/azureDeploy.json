@@ -329,6 +329,10 @@
         "HubFwLoadBalancerIP": {
             "type": "string",
             "value": "[reference('deployOutboundLoadBalancer').outputs.LoadBalancerFrontEndIp.value]"
+        },
+        "functionTrrigger": {
+            "value": "[concat(parameters('panoramaPluginMessageHandlerUrl'), '&op=PublishCustomMetrics', '&ik=', reference('SetupAppInsights').outputs.instrumentationKey.value, '&subsId=', subscription().subscriptionId, '&rg=', variables('infraServiceBusRgName'))]",
+            "type": "string"
         }
     }
 }
