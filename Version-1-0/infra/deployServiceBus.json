@@ -42,7 +42,7 @@
   },
   "resources": [
     {
-      "apiVersion": "[variables('sbVersion')]", 
+      "apiVersion": "[variables('sbVersion')]",
       "name": "[parameters('serviceBusNamespaceName')]",
       "type": "Microsoft.ServiceBus/namespaces",
       "location": "[parameters('location')]",
